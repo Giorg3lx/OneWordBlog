@@ -1,0 +1,1 @@
+{"name":"OneWordBlog","version":"1.0.0","description":"A full-stack blog setup with CMS","main":"index.js","scripts":{"start":"node index.js"},"repository":{"type":"git","url":"https://github.com/Giorg3lx/OneWordBlog.git"},"author":"Giorg3lx","license":"MIT"}

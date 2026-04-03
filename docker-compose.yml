@@ -1,51 +1,14 @@
 version: '3.8'
-
 services:
-  mongodb:
-    image: mongo:6.0
-    container_name: onewordblog-db
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: password
+  web:
+    build: .
     ports:
-      - "27017:27017"
+      - 3000:3000
     volumes:
-      - mongo_data:/data/db
-
-  backend:
-    build: ./backend
-    container_name: onewordblog-backend
-    ports:
-      - "5000:5000"
+      - .:/app
     environment:
-      MONGODB_URI: mongodb://root:password@mongodb:27017/onewordblog?authSource=admin
-      JWT_SECRET: your_secret_key_here
-      NODE_ENV: production
-    depends_on:
-      - mongodb
-    volumes:
-      - ./backend:/app
-      - /app/node_modules
-
-  frontend:
-    build: ./frontend
-    container_name: onewordblog-frontend
+      NODE_ENV: development
+  db:
+    image: mongo:latest
     ports:
-      - "3000:3000"
-    environment:
-      VITE_API_URL: http://localhost:5000/api
-    depends_on:
-      - backend
-
-  admin:
-    build: ./admin
-    container_name: onewordblog-admin
-    ports:
-      - "3001:3000"
-    environment:
-      VITE_API_URL: http://localhost:5000/api
-    depends_on:
-      - backend
-
-volumes:
-  mongo_data:
+      - 27017:27017
